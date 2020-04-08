@@ -3,3 +3,4 @@ flask-cors
 flask_restful
 pytest
 pytest-cov
+feedparser
