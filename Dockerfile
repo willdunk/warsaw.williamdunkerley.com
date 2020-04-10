@@ -1,2 +1,2 @@
-FROM tiangolo/uwsgi-nginx-flask:python3.7-alpine3.8
+FROM alpine:3.7
 COPY ./requirements.txt /var/www/requirements.txt
