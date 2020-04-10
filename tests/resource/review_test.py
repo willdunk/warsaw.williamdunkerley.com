@@ -11,7 +11,7 @@ from app.dto import Review as ReviewDto
 
 RSS_PATH = os.path.abspath('assets/rss/default.rss')
 
-class ReviewTest(unittest.TestCase):
+class TestReview(unittest.TestCase):
 	def setUp(self): 
 		self.app = app.test_client()
 
