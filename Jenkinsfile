@@ -1,5 +1,5 @@
-node {
-	agent { dockerfile true }
+agent { dockerfile true }
+stages {
 	stage('Demo') {
 		steps {
 			sh 'pwd'
