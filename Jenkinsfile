@@ -1,9 +1,10 @@
 node {
-	def testImage = null  
+	def testImage = null
 	stage('Build Image') {
 		checkout scm
 		sh 'pwd'
-		testImage = docker.build("test-image", "test.Dockerfile")
+		def dockerfile = "test.Dockerfile"
+		testImage = docker.build("test-image", "-f ${dockerfile}")
 	}
 	stage('Test') {
 		testImage.inside {
