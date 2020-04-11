@@ -1,7 +1,7 @@
 pipeline {
 	agent {
 		dockerfile {
-			args '-it -d -p 56733:80'
+			args '-it -p 56733:80'
 		}
 	}
 	stages {
