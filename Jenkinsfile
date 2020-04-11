@@ -1,11 +1,11 @@
 pipeline {
-	agent {
-		dockerfile {
-			args '-it -p 56733:80'
-		}
-	}
 	stages {
 		stage('Test') {
+			agent {
+				dockerfile {
+					filename 'test.Dockerfile'
+				}
+			}
 			steps {
 				sh 'pwd'
 			}
