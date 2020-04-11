@@ -5,6 +5,9 @@ node {
 		sh 'pwd'
 		def dockerfile = "test.Dockerfile"
 		testImage = docker.build("test-image", "-f ${dockerfile} ./")
+		testImage.inside {
+			sh 'pwd'
+		}
 	}
 	stage('Test') {
 		testImage.inside {
