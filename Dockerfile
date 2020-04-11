@@ -1,4 +1,3 @@
-FROM tiangolo/uwsgi-nginx:python3.7-alpine3.8
+FROM python:3.7-stretch
 RUN apk --update add bash nano
 COPY ./requirements.txt /var/www/requirements.txt
-RUN pip install -r /var/www/requirements.txt
