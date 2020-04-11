@@ -4,7 +4,7 @@ node {
 		checkout scm
 		sh 'pwd'
 		def dockerfile = "test.Dockerfile"
-		testImage = docker.build("test-image", "-f ${dockerfile}")
+		testImage = docker.build("test-image", "-f ${dockerfile} ./")
 	}
 	stage('Test') {
 		testImage.inside {
