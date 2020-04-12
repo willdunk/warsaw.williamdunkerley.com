@@ -7,6 +7,7 @@ node {
 		testImage = docker.build("test-image", "-f ${dockerfile} ./")
 		testImage.inside {
 			sh 'pwd'
+			sh 'cat /etc/os-release'
 		}
 	}
 	stage('Test') {
