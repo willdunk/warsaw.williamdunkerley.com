@@ -5,13 +5,15 @@ class Review():
 		filmTitle=None,
 		filmYear=None,
 		memberRating=None,
-		link=None
+		link=None,
+		backdrop=None
 	):
 		self.content = content
 		self.filmTitle = filmTitle
 		self.filmYear = filmYear
 		self.memberRating = memberRating
 		self.link = link
+		self.backdrop = backdrop
 	
 	def __eq__(self, other):
 		"""Overrides the default implementation"""
@@ -21,6 +23,7 @@ class Review():
 				self.filmTitle == other.filmTitle and
 				self.filmYear == other.filmYear and
 				self.memberRating == other.memberRating and
-				self.link == other.link
+				self.link == other.link and
+				self.backdrop == other.backdrop
 			)
 		return False

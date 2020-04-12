@@ -10,16 +10,18 @@ class TestReview(unittest.TestCase):
 			'filmYear': None,
 			'memberRating': None,
 			'link': None,
+			'backdrop': None,
 		}
 		self.assertDictEqual(ReviewDto().__dict__, expect)
 	
 	def test_review_assigns_attributes(self):
-		[content, filmTitle, filmYear, memberRating, link] = [
+		[content, filmTitle, filmYear, memberRating, link, backdrop] = [
 			"contentHere",
 			"filmTitleHere",
 			"filmYearHere",
 			"memberRatingHere",
-			"linkHere"
+			"linkHere",
+			"backdropHere"
 		]
 		expect = {
 			'content': content,
@@ -27,12 +29,14 @@ class TestReview(unittest.TestCase):
 			'filmYear': filmYear,
 			'memberRating': memberRating,
 			'link': link,
+			"backdrop": backdrop
 		}
 		r = ReviewDto(
 			content=content,
 			filmTitle=filmTitle,
 			filmYear=filmYear,
 			memberRating=memberRating,
-			link=link
+			link=link,
+			backdrop=backdrop
 		).__dict__
 		self.assertDictEqual(r, expect)
