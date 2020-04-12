@@ -13,6 +13,7 @@ node {
 	stage('Test') {
 		testImage.inside {
 			sh 'pwd'
+			sh 'cat /etc/os-release'
 		}
 	}
 }
