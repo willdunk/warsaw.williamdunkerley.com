@@ -12,4 +12,8 @@ node {
 			sh 'pytest'
 		}
 	}
+	stage('Deploy') {
+		sh 'scp -r ./* paris.williamdunkerley.com:/home/jenkins/amsterdam.williamdunkerley.com'
+		sh 'ssh paris.williamdunkerley.com \'sudo /bin/bash /var/www/amsterdam.williamdunkerley.com/start.sh -n amsterdam.williamdunkerley.com -p 56733\''
+	}
 }
