@@ -9,6 +9,7 @@ node {
 		testImage.inside {
 			sh 'cd /var/www'
 			sh 'ls -la'
+			sh 'ls -la /var/www'
 			sh 'pytest'
 		}
 	}
