@@ -11,5 +11,7 @@ done
 
 docker stop ${DOCKER_CONTAINER_NAME} || echo 'Cannot stop container'
 docker rm ${DOCKER_CONTAINER_NAME} || echo 'Cannot remove container'
+pwd
+ls -la
 docker build -t ${DOCKER_CONTAINER_NAME} .
 docker run -d -p ${DOCKER_PORT}:80 --name=${DOCKER_CONTAINER_NAME} -v $PWD:/app ${DOCKER_CONTAINER_NAME}
