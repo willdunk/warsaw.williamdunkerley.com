@@ -1,7 +1,7 @@
 node {
 	String restartNginx = "sudo /usr/sbin/service nginx restart"
 	String testImage = null
-	String testImageName = 'defaultTestImage'
+	String testImageName = 'defaulttestimage'
 	String testDockerfile = "test.Dockerfile"
 	String remoteServer = "paris.williamdunkerley.com"
 	String environmentName = null
