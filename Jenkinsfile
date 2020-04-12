@@ -8,6 +8,7 @@ node {
 	stage('Test') {
 		testImage.inside {
 			sh 'cd /var/www'
+			sh 'ls -la'
 			sh 'pytest'
 		}
 	}
