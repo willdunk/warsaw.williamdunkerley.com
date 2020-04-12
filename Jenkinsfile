@@ -21,7 +21,7 @@ node {
 
 	stage('Build Test Image') {
 		checkout scm
-		testImage = docker.build(testImageName, "-f ${testDockerfile} ./")
+		testImage = docker.build("${testImageName}", "-f ${testDockerfile} ./")
 	}
 	stage('Test') {
 		testImage.inside {
