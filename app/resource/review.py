@@ -1,15 +1,26 @@
-from flask_restful import Resource
+from flask_restful import Resource, fields, marshal_with
 import feedparser
 from app.service import Review as ReviewService
-from app.dto import Review as ReviewDto
 from app.app import api
 
-@api.resource('/review', '/review/<int:index>')
+review_fields = {
+	'review_id': fields.String,
+	'title': fields.String,
+	'rating': fields.Integer,
+	'review_link': fields.String,
+	'movie_link': fields.String,
+	'banner_image_link': fields.String,
+	'content': fields.String
+}
+
+@api.resource('/review', '/review/<string:index>')
 class Review(Resource):
 	def __init__(self):
 		self.service = ReviewService()
+	
+	@marshal_with(review_fields)
 	def get(self, index=None):
 		if index is None:
-			return list(map(lambda review: review.__dict__, self.service.getReviews()))
+			return self.service.getReviews()
 		else:
-			return self.service.getReview(index).__dict__
+			return self.service.getReview(index)

@@ -7,3 +7,9 @@ feedparser
 beautifulsoup4
 requests
 requests-mock
+flask-sqlalchemy==2.4.1
+flask_script
+flask_migrate
+pylint-flask
+psycopg2
+Flask-APScheduler

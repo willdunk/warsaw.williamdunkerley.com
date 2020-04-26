@@ -1,2 +1,2 @@
-from app import app
-from app.resource import Review
+from .app import app
+from .app import db
