@@ -41,4 +41,4 @@ docker run -d --name=${DOCKER_IMAGE_NAME}.migration ${DOCKER_IMAGE_NAME}.migrati
 docker wait ${DOCKER_IMAGE_NAME}.migration
 docker rm ${DOCKER_IMAGE_NAME}.migration || echo 'Cannot remove migration container'
 docker build -t ${DOCKER_IMAGE_NAME} . -f ./Dockerfiles/Dockerfile --build-arg CONFIG_NAME=${CONFIG_NAME}
-docker run -d -p ${DOCKER_CONTAINER_PORT}:5000 --name=${DOCKER_IMAGE_NAME} -v $PWD:/app ${DOCKER_IMAGE_NAME}
+docker run -d -p ${DOCKER_CONTAINER_PORT}:5000 --name=${DOCKER_IMAGE_NAME}
