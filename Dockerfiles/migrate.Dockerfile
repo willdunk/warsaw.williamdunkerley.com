@@ -7,4 +7,6 @@ ARG CONFIG_NAME
 COPY ./instance/$CONFIG_NAME /etc/flask/app/$CONFIG_NAME
 ENV APP_CONFIG_FILE /etc/flask/app/$CONFIG_NAME
 COPY ./ /app
-CMD ["uwsgi", "--chdir", "/app", "--socket", "0.0.0.0:5000", "--protocol=http", "--module", "main", "--callable", "app", "--enable-threads"]
+ARG MIGRATION_FOLDER
+ENV MIGRATION_FOLDER=$MIGRATION_FOLDER
+CMD python3 /app/manage.py db migrate --directory=/app/$MIGRATION_FOLDER && python3 /app/manage.py db upgrade --directory=/app/$MIGRATION_FOLDER 
