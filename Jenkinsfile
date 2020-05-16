@@ -23,10 +23,10 @@ node {
 		environmentOption = 'dev.';
 	}
 
-	stage('Build Test Image') {
-		checkout scm
-		testImage = docker.build("${testImageName}", ". -f ./Dockerfiles/${testDockerfile}")
-	}
+	// stage('Build Test Image') {
+	// 	checkout scm
+	// 	testImage = docker.build("${testImageName}", ". -f ./Dockerfiles/${testDockerfile}")
+	// }
 	// stage('Test') {
 	// 	testImage.inside {
 	// 		sh 'pytest'
