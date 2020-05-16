@@ -37,8 +37,8 @@ docker rm ${DOCKER_IMAGE_NAME} || echo 'Cannot remove container'
 docker stop ${DOCKER_IMAGE_NAME}.migration || echo 'Cannot stop migration container'
 docker rm ${DOCKER_IMAGE_NAME}.migration || echo 'Cannot remove migration container'
 docker build -t ${DOCKER_IMAGE_NAME}.migration . -f ./Dockerfiles/migrate.Dockerfile --build-arg CONFIG_NAME=${CONFIG_NAME} --build-arg MIGRATION_FOLDER=${MIGRATION_FOLDER}
-docker run -d --name=${DOCKER_IMAGE_NAME}.migration ${DOCKER_IMAGE_NAME}.migration
+docker run -d --name=${DOCKER_IMAGE_NAME}.migration --user $(id -u):$(id -g) ${DOCKER_IMAGE_NAME}.migration
 docker wait ${DOCKER_IMAGE_NAME}.migration
 docker rm ${DOCKER_IMAGE_NAME}.migration || echo 'Cannot remove migration container'
 docker build -t ${DOCKER_IMAGE_NAME} . -f ./Dockerfiles/Dockerfile --build-arg CONFIG_NAME=${CONFIG_NAME}
-docker run -d -p ${DOCKER_CONTAINER_PORT}:5000 --name=${DOCKER_IMAGE_NAME}
+docker run -d -p ${DOCKER_CONTAINER_PORT}:5000 --name=${DOCKER_IMAGE_NAME} --user $(id -u):$(id -g) -v $PWD:/app ${DOCKER_IMAGE_NAME}
