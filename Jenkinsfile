@@ -35,11 +35,11 @@ node {
 	if (environmentName != null && appContainerPort != null) {
 		stage('Deploy') {
 			String appImageName = "${environmentName}.williamdunkerley.com"
-			String startContainer = "cd ${environmentName}.williamdunkerley.com && sudo /bin/bash /var/www/${environmentName}.williamdunkerley.com/start.sh -n ${appImageName} -p ${appContainerPort} -e ${environmentOption}"
+			String startContainer = "cd ${environmentName}.williamdunkerley.com && sudo /bin/bash start.sh -n ${appImageName} -p ${appContainerPort} -e ${environmentOption}"
 			sh "ls -la"
 			sh "scp -r ./* ${remoteServer}:/home/jenkins/${environmentName}.williamdunkerley.com"
-			// sh "ssh ${remoteServer} \'${startContainer}\'"
-			// sh "ssh ${remoteServer} \'${restartNginx}\'"
+			sh "ssh ${remoteServer} \'${startContainer}\'"
+			sh "ssh ${remoteServer} \'${restartNginx}\'"
 		}	
 	}
 	stage('clean ws') {
