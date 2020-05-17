@@ -23,15 +23,15 @@ node {
 		environmentOption = 'dev.';
 	}
 
-	stage('Build Test Image') {
+	stage('Checkout') {
 		checkout scm
-		// testImage = docker.build("${testImageName}", ". -f ./Dockerfiles/${testDockerfile}")
 	}
-	// stage('Test') {
+	stage('Test') {
+		// testImage = docker.build("${testImageName}", ". -f ./Dockerfiles/${testDockerfile}")
 	// 	testImage.inside {
 	// 		sh 'pytest'
 	// 	}
-	// }
+	}
 	if (environmentName != null && appContainerPort != null) {
 		stage('Deploy') {
 			String appImageName = "${environmentName}.williamdunkerley.com"
@@ -42,7 +42,7 @@ node {
 			sh "ssh ${remoteServer} \'${restartNginx}\'"
 		}	
 	}
-	stage('clean ws') {
+	stage('Clean') {
 		cleanWs()
 	}
 }
