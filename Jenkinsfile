@@ -22,6 +22,9 @@ node {
 		appContainerPort = '56735';
 		environmentOption = 'dev.';
 	}
+	stage('clean ws') {
+		cleanWs()
+	}
 
 	stage('Build Test Image') {
 		checkout scm
