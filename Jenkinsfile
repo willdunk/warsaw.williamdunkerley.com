@@ -38,7 +38,7 @@ node {
 			String startContainer = "cd ${environmentName}.williamdunkerley.com && sudo /bin/bash /var/www/${environmentName}.williamdunkerley.com/start.sh -n ${appImageName} -p ${appContainerPort} -e ${environmentOption}"
 			sh "scp -r ./* ${remoteServer}:/home/jenkins/${environmentName}.williamdunkerley.com"
 			sh "ssh ${remoteServer} \'${startContainer}\'"
-			sh "ssh ${remoteServer} \'${restartNginx}\'"
+			// sh "ssh ${remoteServer} \'${restartNginx}\'"
 		}	
 	}
 }
