@@ -36,7 +36,7 @@ node {
 		stage('Deploy') {
 			String appImageName = "${environmentName}.williamdunkerley.com"
 			String startContainer = "cd ${environmentName}.williamdunkerley.com && sudo /bin/bash /var/www/${environmentName}.williamdunkerley.com/start.sh -n ${appImageName} -p ${appContainerPort} -e ${environmentOption}"
-			ls -la
+			sh "ls -la"
 			sh "scp -r ./* ${remoteServer}:/home/jenkins/${environmentName}.williamdunkerley.com"
 			// sh "ssh ${remoteServer} \'${startContainer}\'"
 			// sh "ssh ${remoteServer} \'${restartNginx}\'"
