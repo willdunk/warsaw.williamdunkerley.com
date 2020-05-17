@@ -22,9 +22,6 @@ node {
 		appContainerPort = '56735';
 		environmentOption = 'dev.';
 	}
-	stage('clean ws') {
-		cleanWs()
-	}
 
 	stage('Build Test Image') {
 		checkout scm
@@ -43,5 +40,8 @@ node {
 			// sh "ssh ${remoteServer} \'${startContainer}\'"
 			// sh "ssh ${remoteServer} \'${restartNginx}\'"
 		}	
+	}
+	stage('clean ws') {
+		cleanWs()
 	}
 }
