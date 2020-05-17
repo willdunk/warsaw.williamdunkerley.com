@@ -26,12 +26,6 @@ node {
 	stage('Checkout') {
 		checkout scm
 	}
-	stage('Test') {
-		// testImage = docker.build("${testImageName}", ". -f ./Dockerfiles/${testDockerfile}")
-	// 	testImage.inside {
-	// 		sh 'pytest'
-	// 	}
-	}
 	if (environmentName != null && appContainerPort != null) {
 		stage('Deploy') {
 			String appImageName = "${environmentName}.williamdunkerley.com"
