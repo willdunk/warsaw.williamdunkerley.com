@@ -1,22 +1,26 @@
-from flask_restful import Resource
+from flask_restful import Resource, fields, marshal_with
 import feedparser
-from app.dto import Review as ReviewDto
+from app.service import Review as ReviewService
 from app.app import api
 
-@api.resource('/review', '/review/<int:index>')
+review_fields = {
+	'review_id': fields.String,
+	'title': fields.String,
+	'rating': fields.Integer,
+	'review_link': fields.String,
+	'movie_link': fields.String,
+	'banner_image_link': fields.String,
+	'content': fields.String
+}
+
+@api.resource('/review', '/review/<string:index>')
 class Review(Resource):
+	def __init__(self):
+		self.service = ReviewService()
+	
+	@marshal_with(review_fields)
 	def get(self, index=None):
-		feed = feedparser.parse('https://letterboxd.com/hahaveryfun/rss/')
-		entries = list(filter(lambda entry: 'letterboxd-review' in entry.id, feed.entries))
-		def makeDto(entry):
-			return ReviewDto(
-				content=str(entry.description),
-				filmTitle=str(entry.letterboxd_filmtitle),
-				filmYear=str(entry.letterboxd_filmyear),
-				memberRating=str(entry.letterboxd_memberrating),
-				link=str(entry.link)
-			).__dict__
 		if index is None:
-			return list(map(makeDto, entries))
+			return self.service.getReviews()
 		else:
-			return makeDto(entries[index])
+			return self.service.getReview(index)
