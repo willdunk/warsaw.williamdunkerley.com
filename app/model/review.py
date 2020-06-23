@@ -12,3 +12,5 @@ class ReviewModel(BaseModel, db.Model):
 	movie_link = db.Column(db.Text)
 	banner_image_link = db.Column(db.Text)
 	content = db.Column(db.Text)
+	published_date = db.Column(db.DateTime)
+	watched_date = db.Column(db.DateTime)
