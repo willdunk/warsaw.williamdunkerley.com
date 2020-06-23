@@ -10,7 +10,9 @@ review_fields = {
 	'review_link': fields.String,
 	'movie_link': fields.String,
 	'banner_image_link': fields.String,
-	'content': fields.String
+	'content': fields.String,
+	'published_date': fields.DateTime(dt_format='rfc822'),
+	'watched_date': fields.DateTime(dt_format='rfc822'),
 }
 
 @api.resource('/review', '/review/<string:index>')

@@ -4,6 +4,7 @@ import feedparser
 import uuid
 from bs4 import BeautifulSoup
 import requests
+from dateutil.parser import parse
 
 def delta_rss():
 	print("Retrieving RSS")
@@ -20,6 +21,8 @@ def delta_rss():
 				movie_link=str(entry.link),
 				banner_image_link=str(parseLetterboxdPage(entry.link)),
 				content=str(entry.description),
+				published_date=parse(entry.published),
+				watched_date=parse(entry.letterboxd_watcheddate),
 			)
 			db.session.add(r)
 		db.session.commit()
