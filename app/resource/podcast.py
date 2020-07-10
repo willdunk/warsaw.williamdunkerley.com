@@ -1,4 +1,4 @@
-from flask_restful import Resource, fields, marshal_with
+from flask_restful import Resource, fields, marshal_with, reqparse
 from app.service import Podcast as PodcastService
 from app.app import api
 
@@ -28,3 +28,11 @@ class Podcast(Resource):
 		if show_id is None:
 			return self.service.getPodcasts()
 		return self.service.getPodcast(show_id)
+
+	@marshal_with(podcast_fields)
+	def post(self):
+		parse = reqparse.RequestParser()
+		parse.add_argument('title')
+		parse.add_argument('description')
+		args = parse.parse_args()
+		return self.service.setPodcast(args)
