@@ -1,5 +1,4 @@
 from flask_restful import Resource, fields, marshal_with
-import feedparser
 from app.service import Review as ReviewService
 from app.app import api
 
@@ -15,7 +14,6 @@ review_fields = {
 	'watched_date': fields.DateTime(dt_format='rfc822'),
 }
 
-@api.resource('/review', '/review/<string:index>')
 class Review(Resource):
 	def __init__(self):
 		self.service = ReviewService()
@@ -24,5 +22,4 @@ class Review(Resource):
 	def get(self, index=None):
 		if index is None:
 			return self.service.getReviews()
-		else:
-			return self.service.getReview(index)
+		return self.service.getReview(index)
