@@ -1,38 +1,27 @@
-from flask_restful import Resource, fields, marshal_with, reqparse
+from flask_restx import Resource, Namespace, reqparse
 from app.service import Podcast as PodcastService
 from app.app import api
+from app.utils import podcast_fields
 
-episode_fields = {
-	'episode_id': fields.String,
-	'episode_number': fields.Integer,
-	'title': fields.String,
-	'description': fields.String,
-	'uri': fields.String,
-	'published_date': fields.DateTime(dt_format='rfc822'),
-	'show_id': fields.String,
-}
+api = Namespace('podcast', description="Podcast operations")
 
-podcast_fields = {
-	'show_id': fields.String,
-	'title': fields.String,
-	'description': fields.String,
-	'episodes': fields.List(fields.Nested(episode_fields)),
-}
+parser = reqparse.RequestParser()
+parser.add_argument('title', help='This field cannot be blank', required=True)
+parser.add_argument('description', help='This field cannot be blank', required=True)
 
-class Podcast(Resource):
-	def __init__(self):
-		self.service = PodcastService()
-
-	@marshal_with(podcast_fields)
-	def get(self, show_id=None):
-		if show_id is None:
-			return self.service.getPodcasts()
-		return self.service.getPodcast(show_id)
-
-	@marshal_with(podcast_fields)
+@api.route('')
+class Podcasts(Resource):
+	@api.marshal_with(podcast_fields)
+	def get(self):
+		return PodcastService().getPodcasts()
+	
+	@api.expect(parser)
+	@api.marshal_with(podcast_fields)
 	def post(self):
-		parse = reqparse.RequestParser()
-		parse.add_argument('title')
-		parse.add_argument('description')
-		args = parse.parse_args()
-		return self.service.setPodcast(args)
+		return PodcastService().setPodcast(parser.parse_args())
+
+@api.route('/<string:show_uuid>')
+class Podcast(Resource):
+	@api.marshal_with(podcast_fields)
+	def get(self, show_uuid):
+		return PodcastService().getPodcast(show_uuid)

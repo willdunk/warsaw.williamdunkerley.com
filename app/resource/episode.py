@@ -1,32 +1,26 @@
-from flask_restful import Resource, fields, marshal_with, reqparse
+from flask_restx import Resource, Namespace, reqparse
 from app.service import Episode as EpisodeService
 from app.app import api
+from app.utils import episode_fields
 
-episode_fields = {
-	'episode_id': fields.String,
-	'episode_number': fields.Integer,
-	'title': fields.String,
-	'description': fields.String,
-	'uri': fields.String,
-	'published_date': fields.DateTime(dt_format='rfc822'),
-	'show_id': fields.String,
-}
+api = Namespace('episode', description="Episode operations")
 
+parser = reqparse.RequestParser()
+parser.add_argument('episode_number', help='This field cannot be blank', required=True)
+parser.add_argument('title', help='This field cannot be blank', required=True)
+parser.add_argument('description', help='This field cannot be blank', required=True)
+parser.add_argument('uri', help='This field cannot be blank', required=True)
+parser.add_argument('show_id', help='This field cannot be blank', required=True)
+
+@api.route('/<string:episode_uuid>')
 class Episode(Resource):
-	def __init__(self):
-		self.service = EpisodeService()
+	@api.marshal_with(episode_fields)
+	def get(self, episode_uuid):
+		return EpisodeService().getEpisode(episode_uuid)
 
-	@marshal_with(episode_fields)
-	def get(self, episode_id):
-		return self.service.getEpisode(episode_id)
-
-	@marshal_with(episode_fields)
+@api.route('')
+class Episodes(Resource):
+	@api.expect(parser)
+	@api.marshal_with(episode_fields)
 	def post(self):
-		parse = reqparse.RequestParser()
-		parse.add_argument('episode_number')
-		parse.add_argument('title')
-		parse.add_argument('description')
-		parse.add_argument('uri')
-		parse.add_argument('show_id')
-		args = parse.parse_args()
-		return self.service.setEpisode(args)
+		return EpisodeService().setEpisode(parser.parse_args())

@@ -1,5 +1,3 @@
-from flask_restful import Resource
-from app.app import api
 from app.model import PodcastEpisodeModel
 from app.app import db
 import uuid

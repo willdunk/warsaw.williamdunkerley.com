@@ -1,8 +1,6 @@
-from flask_restful import Resource
-from app.app import api
+from app.app import db
 from typing import List
 from app.model import PodcastShowModel
-from app.app import db
 
 class Podcast():
 	def getPodcasts(self) -> List[PodcastShowModel]:

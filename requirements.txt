@@ -1,7 +1,6 @@
 uwsgi
 Flask==1.1.0
 flask-cors
-flask_restful
 pytest
 pytest-cov
 feedparser
@@ -13,4 +12,9 @@ flask_script
 flask_migrate
 pylint-flask
 psycopg2
+werkzeug
+helpers
+flask-jwt-extended
+passlib
+flask_restx
 Flask-APScheduler
