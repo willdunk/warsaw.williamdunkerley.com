@@ -1,28 +1,19 @@
-from flask_restful import Resource, fields, marshal_with
-import feedparser
+from flask_restx import Resource, Namespace
 from app.service import Review as ReviewService
 from app.app import api
+from flask_jwt_extended import jwt_required, jwt_optional, get_jwt_identity
+from app.utils import review_fields
 
-review_fields = {
-	'review_id': fields.String,
-	'title': fields.String,
-	'rating': fields.Integer,
-	'review_link': fields.String,
-	'movie_link': fields.String,
-	'banner_image_link': fields.String,
-	'content': fields.String,
-	'published_date': fields.DateTime(dt_format='rfc822'),
-	'watched_date': fields.DateTime(dt_format='rfc822'),
-}
+api = Namespace('review', description='Review operations')
 
-@api.resource('/review', '/review/<string:index>')
+@api.route('')
+class Reviews(Resource):
+	@api.marshal_with(review_fields)
+	def get(self):
+		return ReviewService().getReviews()
+
+@api.route('/<string:review_uuid>')
 class Review(Resource):
-	def __init__(self):
-		self.service = ReviewService()
-	
-	@marshal_with(review_fields)
-	def get(self, index=None):
-		if index is None:
-			return self.service.getReviews()
-		else:
-			return self.service.getReview(index)
+	@api.marshal_with(review_fields)
+	def get(self, review_uuid):
+		return ReviewService().getReview(review_uuid)
