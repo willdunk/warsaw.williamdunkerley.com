@@ -7,7 +7,7 @@ class Episode():
 	def getEpisode(self, episode_id) -> PodcastEpisodeModel:
 		return PodcastEpisodeModel.query.filter_by(episode_id=episode_id).first()
 	
-	def setEpisode(self, args) -> PodcastEpisodeModel:
+	def setEpisode(self, username, args) -> PodcastEpisodeModel:
 		episode = PodcastEpisodeModel(
 			episode_id=str(uuid.uuid4()),
 			episode_number=int(args['episode_number']),

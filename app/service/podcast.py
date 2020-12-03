@@ -9,7 +9,7 @@ class Podcast():
 	def getPodcast(self, show_id) -> PodcastShowModel:
 		return PodcastShowModel.query.filter_by(show_id=show_id).first()
 
-	def setPodcast(self, args) -> PodcastShowModel:
+	def setPodcast(self, username, args) -> PodcastShowModel:
 		podcast = PodcastShowModel(
 			show_id=str(uuid.uuid4()),
 			title=str(args['title']),
