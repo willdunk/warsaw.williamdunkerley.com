@@ -29,3 +29,8 @@ podcast_fields = api.model('Podcast', {
 	'description': fields.String,
 	'episodes': fields.List(fields.Nested(episode_fields)),
 })
+
+user_fields = api.model('User', {
+	'username': fields.String,
+	'is_admin': fields.Boolean
+})

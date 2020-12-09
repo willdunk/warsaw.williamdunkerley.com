@@ -15,7 +15,6 @@ authorizations = {
 	}
 }
 
-
 class PatchedApi(Api):
 	@property
 	def specs_url(self):
@@ -31,7 +30,6 @@ app.register_blueprint(blueprint)
 
 app.config.from_object('config')
 app.config.from_envvar('APP_CONFIG_FILE')
-app.config['JWT_SECRET_KEY'] = 'jwt-secret-string'
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 app.config['RESTX_MASK_SWAGGER'] = False
@@ -50,3 +48,6 @@ api.add_namespace(podcast_ns)
 
 from app.resource.episode import api as episode_ns
 api.add_namespace(episode_ns)
+
+from app.resource.user import api as user_ns
+api.add_namespace(user_ns)
