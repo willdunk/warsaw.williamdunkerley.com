@@ -7,11 +7,11 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 api = Namespace('episode', description="Episode operations")
 
 parser = reqparse.RequestParser()
-parser.add_argument('episode_number', help='This field cannot be blank', required=True)
-parser.add_argument('title', help='This field cannot be blank', required=True)
-parser.add_argument('description', help='This field cannot be blank', required=True)
-parser.add_argument('uri', help='This field cannot be blank', required=True)
-parser.add_argument('show_id', help='This field cannot be blank', required=True)
+parser.add_argument('episode_number', help='This field cannot be blank', required=True, location="json")
+parser.add_argument('title', help='This field cannot be blank', required=True, location="json")
+parser.add_argument('description', help='This field cannot be blank', required=True, location="json")
+parser.add_argument('uri', help='This field cannot be blank', required=True, location="json")
+parser.add_argument('show_id', help='This field cannot be blank', required=True, location="json")
 
 @api.route('/<string:episode_uuid>')
 class Episode(Resource):
