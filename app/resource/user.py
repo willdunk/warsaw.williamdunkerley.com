@@ -3,13 +3,12 @@ from app.model import UserModel, RevokedTokenModel
 from flask_jwt_extended import jwt_required, jwt_refresh_token_required, get_jwt_identity
 from app.service import User as UserService
 from app.utils import user_fields
-from flask_cors import cross_origin
 
 api = Namespace('user', description='User operations')
 parser = reqparse.RequestParser()
-parser.add_argument('username', help='This field cannot be blank', required=True)
-parser.add_argument('password', help='This field cannot be blank', required=True)
-parser.add_argument('is_admin', required=False)
+parser.add_argument('username', help='This field cannot be blank', required=True, location="json")
+parser.add_argument('password', help='This field cannot be blank', required=True, location="json")
+parser.add_argument('is_admin', required=False, location="json")
 
 
 @api.route('/register')
