@@ -21,7 +21,7 @@ class PatchedApi(Api):
 		return url_for(self.endpoint('specs'))
 
 app = Flask(__name__, instance_relative_config=True)
-# CORS(app, resources={"*": {"origins": "*"}})
+CORS(app, expose_headers='Authorization')
 
 blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
 api = PatchedApi(blueprint, doc='/doc/', title="Warsaw", authorizations=authorizations, security='jwt')
