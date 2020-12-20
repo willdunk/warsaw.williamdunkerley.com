@@ -4,11 +4,11 @@ from flask_jwt_extended import jwt_required, jwt_refresh_token_required, get_jwt
 from app.service import User as UserService
 from app.utils import user_fields
 
-api = Namespace('user', description='User operations')
+api = Namespace('user', description='User operations', decorators=[cors.crossdomain(origin="*")])
 parser = reqparse.RequestParser()
 parser.add_argument('username', help='This field cannot be blank', required=True, location="json")
 parser.add_argument('password', help='This field cannot be blank', required=True, location="json")
-parser.add_argument('is_admin', required=False, location="json")
+parser.add_argument('is_admin', type=bool, required=False, location="json")
 
 
 @api.route('/register')
@@ -21,6 +21,7 @@ class Register(Resource):
 
 @api.route('/login')
 class Login(Resource):
+	@cors.crossdomain(origin="*")
 	@api.doc(security=None)
 	@api.expect(parser)
 	def post(self):
@@ -29,6 +30,7 @@ class Login(Resource):
 
 @api.route('/info')
 class Info(Resource):
+	@cors.crossdomain(origin="*")
 	@jwt_required
 	@api.marshal_with(user_fields)
 	def get(self):
