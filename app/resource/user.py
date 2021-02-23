@@ -1,6 +1,6 @@
 from flask_restx import Resource, reqparse, marshal_with, Namespace, cors
 from app.model import UserModel, RevokedTokenModel
-from flask_jwt_extended import jwt_required, jwt_refresh_token_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt
 from app.service import User as UserService
 from app.utils import user_fields
 
