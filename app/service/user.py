@@ -15,7 +15,7 @@ class User():
 		new_user = UserModel(
 			username=data['username'],
 			password=sha256.hash(password),
-			is_admin=data['isAdmin']
+			is_admin=data['is_admin']
 		)
 
 		try:
