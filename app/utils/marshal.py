@@ -1,5 +1,6 @@
 from flask_restx import fields
 from app.app import api
+from werkzeug.http import HTTP_STATUS_CODES
 
 review_fields = api.model('Review', {
 	'review_id': fields.String,
@@ -34,3 +35,27 @@ user_fields = api.model('User', {
 	'username': fields.String,
 	'is_admin': fields.Boolean
 })
+
+both_tokens_fields = api.model('BothTokens', {
+	'access_token': fields.String,
+	'refresh_token': fields.String
+})
+
+access_token_fields = api.model('AccessToken', {
+	'access_token': fields.String
+})
+
+generic_message_fields = api.model('GenericMessage', {
+	'message': fields.String
+})
+
+error_fields = api.model('Error', {
+	'message': fields.String
+})
+
+def possible_error(code):
+	return {
+		'code': code,
+		'description': HTTP_STATUS_CODES.get(code),
+		'model': error_fields,
+	}
