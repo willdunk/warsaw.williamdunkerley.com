@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, url_for
+from flask import Flask, Blueprint, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_apscheduler import APScheduler 
 from flask_jwt_extended import JWTManager
@@ -35,6 +35,16 @@ app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 app.config['RESTX_MASK_SWAGGER'] = False
 
 jwt = JWTManager(app)
+
+
+@jwt.unauthorized_loader
+def unauthorized(message):
+	return jsonify(message=message), 401
+
+@jwt.invalid_token_loader
+def invalid_token(message):
+	return jsonify(message=message), 422
+
 db = SQLAlchemy(app)
 scheduler = APScheduler()
 scheduler.init_app(app)
