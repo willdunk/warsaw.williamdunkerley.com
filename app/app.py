@@ -5,6 +5,7 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flask_restx import Api
 from werkzeug.middleware.proxy_fix import ProxyFix
+import os
 
 authorizations = {
 	'jwt': {
@@ -29,7 +30,9 @@ api = PatchedApi(blueprint, doc='/doc/', title="Warsaw", authorizations=authoriz
 app.register_blueprint(blueprint)
 
 app.config.from_object('config')
-app.config.from_envvar('APP_CONFIG_FILE')
+# app.config.from_envvar('APP_CONFIG_FILE')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_SECRET_KEY")
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 app.config['RESTX_MASK_SWAGGER'] = False
