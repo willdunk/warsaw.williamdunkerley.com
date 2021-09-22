@@ -53,14 +53,14 @@ scheduler = APScheduler()
 scheduler.init_app(app)
 scheduler.start()
 
-from app.resource.review import api as review_ns
-api.add_namespace(review_ns)
+# from app.resource.review import api as review_ns
+# api.add_namespace(review_ns)
 
-from app.resource.podcast import api as podcast_ns
-api.add_namespace(podcast_ns)
+# from app.resource.podcast import api as podcast_ns
+# api.add_namespace(podcast_ns)
 
-from app.resource.episode import api as episode_ns
-api.add_namespace(episode_ns)
+# from app.resource.episode import api as episode_ns
+# api.add_namespace(episode_ns)
 
-from app.resource.user import api as user_ns
-api.add_namespace(user_ns)
+# from app.resource.user import api as user_ns
+# api.add_namespace(user_ns)
