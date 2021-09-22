@@ -37,16 +37,16 @@ app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 app.config['RESTX_MASK_SWAGGER'] = False
 
-jwt = JWTManager(app)
+# jwt = JWTManager(app)
 
 
-@jwt.unauthorized_loader
-def unauthorized(message):
-	return jsonify(message=message), 401
+# @jwt.unauthorized_loader
+# def unauthorized(message):
+# 	return jsonify(message=message), 401
 
-@jwt.invalid_token_loader
-def invalid_token(message):
-	return jsonify(message=message), 422
+# @jwt.invalid_token_loader
+# def invalid_token(message):
+# 	return jsonify(message=message), 422
 
 db = SQLAlchemy(app)
 scheduler = APScheduler()
