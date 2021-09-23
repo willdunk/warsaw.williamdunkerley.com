@@ -24,7 +24,7 @@ class PatchedApi(Api):
 app = Flask(__name__, instance_relative_config=True)
 CORS(app)
 
-blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
+blueprint = Blueprint('api', __name__, url_prefix='/v1')
 api = PatchedApi(blueprint, doc='/doc/', title="Warsaw", authorizations=authorizations, security='jwt')
 
 app.register_blueprint(blueprint)
