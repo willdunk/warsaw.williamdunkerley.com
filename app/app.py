@@ -48,7 +48,7 @@ def unauthorized(message):
 def invalid_token(message):
 	return jsonify(message=message), 422
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 scheduler = APScheduler()
 scheduler.init_app(app)
 scheduler.start()
