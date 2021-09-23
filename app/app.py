@@ -31,11 +31,11 @@ app.register_blueprint(blueprint)
 
 app.config.from_object('config')
 # app.config.from_envvar('APP_CONFIG_FILE')
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
-# app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_SECRET_KEY")
-# app.config['JWT_BLACKLIST_ENABLED'] = True
-# app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
-# app.config['RESTX_MASK_SWAGGER'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_SECRET_KEY")
+app.config['JWT_BLACKLIST_ENABLED'] = True
+app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
+app.config['RESTX_MASK_SWAGGER'] = False
 
 jwt = JWTManager(app)
 
@@ -48,19 +48,19 @@ def unauthorized(message):
 def invalid_token(message):
 	return jsonify(message=message), 422
 
-# db = SQLAlchemy(app)
-# scheduler = APScheduler()
-# scheduler.init_app(app)
-# scheduler.start()
+db = SQLAlchemy(app)
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
 
-# from app.resource.review import api as review_ns
-# api.add_namespace(review_ns)
+from app.resource.review import api as review_ns
+api.add_namespace(review_ns)
 
-# from app.resource.podcast import api as podcast_ns
-# api.add_namespace(podcast_ns)
+from app.resource.podcast import api as podcast_ns
+api.add_namespace(podcast_ns)
 
-# from app.resource.episode import api as episode_ns
-# api.add_namespace(episode_ns)
+from app.resource.episode import api as episode_ns
+api.add_namespace(episode_ns)
 
-# from app.resource.user import api as user_ns
-# api.add_namespace(user_ns)
+from app.resource.user import api as user_ns
+api.add_namespace(user_ns)
