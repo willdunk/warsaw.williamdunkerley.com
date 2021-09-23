@@ -31,11 +31,11 @@ app.register_blueprint(blueprint)
 
 app.config.from_object('config')
 # app.config.from_envvar('APP_CONFIG_FILE')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
-app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_SECRET_KEY")
-app.config['JWT_BLACKLIST_ENABLED'] = True
-app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
-app.config['RESTX_MASK_SWAGGER'] = False
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+# app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_SECRET_KEY")
+# app.config['JWT_BLACKLIST_ENABLED'] = True
+# app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
+# app.config['RESTX_MASK_SWAGGER'] = False
 
 jwt = JWTManager(app)
 

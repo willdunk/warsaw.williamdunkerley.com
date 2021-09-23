@@ -1,4 +1,4 @@
-uwsgi
+gunicorn
 Flask==1.1.0
 flask-cors
 pytest
