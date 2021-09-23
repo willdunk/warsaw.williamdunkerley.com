@@ -49,9 +49,9 @@ def invalid_token(message):
 	return jsonify(message=message), 422
 
 # db = SQLAlchemy(app)
-scheduler = APScheduler()
-scheduler.init_app(app)
-scheduler.start()
+# scheduler = APScheduler()
+# scheduler.init_app(app)
+# scheduler.start()
 
 # from app.resource.review import api as review_ns
 # api.add_namespace(review_ns)
