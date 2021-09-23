@@ -1,6 +1,6 @@
 from flask_restx import Resource, reqparse, marshal_with, Namespace, cors
 from app.model import UserModel, RevokedTokenModel
-from flask_jwt_extended import jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from app.service import User as UserService
 from app.utils import user_fields, both_tokens_fields, error_fields, access_token_fields, possible_error, generic_message_fields
 from werkzeug.exceptions import Conflict
@@ -48,12 +48,12 @@ class LogoutAccess(Resource):
 	@api.marshal_with(generic_message_fields)
 	@api.response(**possible_error(401))
 	def post(self):
-		return UserService().logoutAccess(get_raw_jwt())
+		return UserService().logoutAccess(get_jwt())
 
 
 @api.route('/token/refresh')
 class TokenRefresh(Resource):
-	@jwt_refresh_token_required
+	@jwt_required(refresh=True)
 	@api.marshal_with(access_token_fields)
 	@api.response(**possible_error(401))
 	def post(self):
@@ -62,8 +62,8 @@ class TokenRefresh(Resource):
 
 @api.route('/logout/refresh')
 class LogoutRefresh(Resource):
-	@jwt_refresh_token_required
+	@jwt_required(refresh=True)
 	@api.marshal_with(generic_message_fields)
 	@api.response(**possible_error(401))
 	def post(self):
-		return UserService().logoutRefresh(get_raw_jwt())
+		return UserService().logoutRefresh(get_jwt())
