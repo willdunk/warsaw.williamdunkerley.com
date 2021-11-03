@@ -36,6 +36,7 @@ app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_SECRET_KEY")
 # app.config['JWT_BLACKLIST_ENABLED'] = True
 # app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 app.config['RESTX_MASK_SWAGGER'] = False
+app.config['SCHEDULER_API_ENABLED'] = True
 
 jwt = JWTManager(app)
 
@@ -49,7 +50,12 @@ def invalid_token(message):
 	return jsonify(message=message), 422
 
 db = SQLAlchemy(app)
+
 scheduler = APScheduler()
+from app.task import delta_rss
+@scheduler.task("interval", id="rss", seconds=60)
+def job():
+	delta_rss()
 scheduler.init_app(app)
 scheduler.start()
 
