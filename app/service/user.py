@@ -2,7 +2,7 @@ from typing import List
 from app.model import UserModel, RevokedTokenModel
 from app.app import db
 from passlib.hash import pbkdf2_sha256 as sha256
-from flask_jwt_extended import create_access_token, create_refresh_token, get_raw_jwt, get_jwt_identity
+from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity
 from flask_restx import abort
 
 class User():
