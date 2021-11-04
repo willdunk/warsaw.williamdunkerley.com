@@ -7,7 +7,7 @@ import requests
 from dateutil.parser import parse
 
 def delta_rss():
-	print("Retrieving RSS")
+	print("Retrieving RSS", flush=True)
 	feed = feedparser.parse('https://letterboxd.com/hahaveryfun/rss/')
 	entries = list(filter(lambda entry: 'letterboxd-review' in entry.id, feed.entries))
 	for entry in entries:

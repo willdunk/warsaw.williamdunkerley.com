@@ -1,10 +1,11 @@
-from flask import Flask, Blueprint, url_for
+from flask import Flask, Blueprint, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_apscheduler import APScheduler 
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flask_restx import Api
 from werkzeug.middleware.proxy_fix import ProxyFix
+import os
 
 authorizations = {
 	'jwt': {
@@ -29,14 +30,32 @@ api = PatchedApi(blueprint, doc='/doc/', title="Warsaw", authorizations=authoriz
 app.register_blueprint(blueprint)
 
 app.config.from_object('config')
-app.config.from_envvar('APP_CONFIG_FILE')
-app.config['JWT_BLACKLIST_ENABLED'] = True
-app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
+# app.config.from_envvar('APP_CONFIG_FILE')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_SECRET_KEY")
+# app.config['JWT_BLACKLIST_ENABLED'] = True
+# app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 app.config['RESTX_MASK_SWAGGER'] = False
+app.config['SCHEDULER_API_ENABLED'] = True
 
 jwt = JWTManager(app)
+
+
+@jwt.unauthorized_loader
+def unauthorized(message):
+	return jsonify(message=message), 401
+
+@jwt.invalid_token_loader
+def invalid_token(message):
+	return jsonify(message=message), 422
+
 db = SQLAlchemy(app)
+
 scheduler = APScheduler()
+from app.task import delta_rss
+@scheduler.task("interval", id="rss", seconds=60)
+def job():
+	delta_rss()
 scheduler.init_app(app)
 scheduler.start()
 

@@ -1,7 +1,7 @@
 from flask_restx import Resource, Namespace, reqparse
 from app.service import Review as ReviewService
 from app.app import api
-from app.utils import review_fields
+from app.utils import review_fields, error_fields
 
 api = Namespace('review', description='Review operations')
 

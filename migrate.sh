@@ -1,1 +1,2 @@
-python3 -B /app/manage.py db upgrade --directory=/app/$MIGRATION_FOLDER
+#!/bin/bash
+python3 -B manage.py db migrate --directory=$MIGRATION_FOLDER
