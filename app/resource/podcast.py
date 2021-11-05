@@ -19,7 +19,7 @@ class Podcasts(Resource):
 	
 	@api.expect(parser)
 	@api.marshal_with(podcast_fields)
-	@jwt_required
+	@jwt_required()
 	def post(self):
 		return PodcastService().setPodcast(get_jwt_identity(), parser.parse_args())
 

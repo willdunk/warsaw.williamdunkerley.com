@@ -22,7 +22,7 @@ class Episode(Resource):
 
 @api.route('')
 class Episodes(Resource):
-	@jwt_required
+	@jwt_required()
 	@api.expect(parser)
 	@api.marshal_with(episode_fields)
 	def post(self):
