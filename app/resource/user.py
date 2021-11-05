@@ -35,7 +35,7 @@ class Login(Resource):
 @api.route('/info')
 class Info(Resource):
 	@cors.crossdomain(origin="*")
-	@jwt_required
+	@jwt_required()
 	@api.marshal_with(user_fields)
 	@api.response(**possible_error(401))
 	def get(self):
@@ -44,7 +44,7 @@ class Info(Resource):
 
 @api.route('/logout/access')
 class LogoutAccess(Resource):
-	@jwt_required
+	@jwt_required()
 	@api.marshal_with(generic_message_fields)
 	@api.response(**possible_error(401))
 	def post(self):
